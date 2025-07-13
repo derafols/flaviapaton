@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio – Creative Strategy & Marketing</title>
+  <!-- You can include a Google Font for nicer typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* Embedded CSS for simplicity */
+    :root {
+      --primary-color: #2c6598;      /* a friendly blue for accents */
+      --bg-color: #FFFFFF;
+      --text-color: #333333;
+      --secondary-color: #f0f8ff;   /* light blue background for sections */
+      --font-family: 'Montserrat', sans-serif;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: var(--font-family);
+      background: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+    header {
+      background: var(--secondary-color);
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0.2rem 0;
+      font-weight: 700;
+      font-size: 2rem;
+    }
+    header p.tagline {
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin: 0.5rem 0 1.5rem;
+    }
+    /* Navigation Bar */
+    nav {
+      position: sticky;
+      top: 0;
+      background: var(--bg-color);
+      padding: 0.5rem 1rem;
+      border-bottom: 1px solid #ddd;
+      text-align: center;
+      z-index: 1000;
+    }
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: var(--text-color);
+      font-weight: 500;
+    }
+    nav a:hover {
+      color: var(--primary-color);
+    }
+    /* Sections */
+    section {
+      padding: 2rem 1rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+      text-align: center;
+      position: relative;
+    }
+    section h2::after {
+      content: "";
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: var(--primary-color);
+      margin: 0.5rem auto 1.5rem;
+      border-radius: 2px;
+    }
+    /* Introduction Section */
+    .intro-content {
+      text-align: left;
+      font-size: 1rem;
+    }
+    .intro-content p {
+      margin: 0.5rem 0;
+    }
+    .intro-content ul {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0;
+      column-count: 2; /* split into two columns on wide screens */
+    }
+    .intro-content ul li::before {
+      content: "• ";
+      color: var(--primary-color);
+    }
+    /* Logo grid */
+    .logo-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .logo-grid img {
+      max-height: 60px;
+      max-width: 120px;
+      object-fit: contain;
+      filter: grayscale(50%); /* slight grayscale for uniform look */
+      transition: filter 0.3s ease;
+    }
+    .logo-grid img:hover {
+      filter: grayscale(0%); /* show true color on hover */
+    }
+    /* Key results / stats */
+    .stats-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      text-align: center;
+      gap: 1rem;
+    }
+    .stat {
+      flex: 1 1 150px;
+      background: #f9f9f9;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      padding: 1rem;
+    }
+    .stat h3 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: var(--primary-color);
+    }
+    .stat p {
+      margin: 0.5rem 0 0;
+      font-size: 0.9rem;
+      color: #555;
+    }
+    /* Industries list */
+    .industries-list {
+      text-align: center;
+      margin: 1rem 0;
+    }
+    .industries-list span {
+      display: inline-block;
+      background: var(--secondary-color);
+      color: var(--text-color);
+      padding: 0.5rem 0.75rem;
+      margin: 0.3rem;
+      border-radius: 15px;
+      font-size: 0.9rem;
+    }
+    /* Projects grid */
+    .projects-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .project-card {
+      flex: 1 1 calc(50% - 1.5rem);
+      /* two cards per row on desktop */
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 5px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease;
+    }
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+    .project-card img {
+      width: 100%;
+      height: auto;
+    }
+    .project-card .project-content {
+      padding: 1rem;
+    }
+    .project-card h3 {
+      font-size: 1.1rem;
+      margin: 0 0 0.5rem;
+      color: var(--primary-color);
+    }
+    .project-card ul {
+      padding-left: 1.2rem;
+      margin: 0 0 0.5rem;
+    }
+    .project-card ul li {
+      margin-bottom: 0.3rem;
+    }
+    .project-card a {
+      text-decoration: none;
+      color: var(--primary-color);
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+    .project-card a:hover {
+      text-decoration: underline;
+    }
+    /* Contact/Footer */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: var(--secondary-color);
+    }
+    footer p {
+      margin: 0.3rem 0;
+    }
+    footer a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+    /* Responsive adjustments */
+    @media(max-width: 600px) {
+      .intro-content ul {
+        column-count: 1; /* single column list on mobile */
+      }
+      .projects-grid {
+        flex-direction: column;
+      }
+      .project-card {
+        flex: 1 1 auto;
+      }
+      .stats-list {
+        flex-direction: column;
+        align-items: center;
+      }
+      .stat {
+        width: 100%;
+        max-width: 300px;
+      }
+      nav {
+        padding: 0.5rem;
+      }
+      nav a {
+        margin: 0 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Alex Doe</h1>
+  <p class="tagline">Creative Strategist & Project Manager</p>
+  <!-- You can include a short intro summary here or in the section below -->
+</header>
+
+<nav>
+  <a href="#about">About</a>
+  <a href="#brands">Clients</a>
+  <a href="#results">Results</a>
+  <a href="#projects">Projects</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<section id="about">
+  <h2>About Me</h2>
+  <div class="intro-content">
+    <p>Hello! I'm a creative strategy and project management professional with experience in fashion, marketing, and tech industries. I specialize in brand development and marketing campaigns that drive growth and engagement.</p>
+    <p>With an MBA in Fashion Business and a background in English Literature, I blend creative insight with analytical skills to deliver impactful brand experiences.</p>
+    <ul>
+      <li><strong>Education:</strong> MBA, Universidad de Navarra; B.A. University of Miami (Dean’s List)</li>
+      <li><strong>Certifications:</strong> BoF Buying & Merchandising; BoF Fashion Styling & Image Making</li>
+      <li><strong>Skills:</strong> Figma, Salesforce CRM, Adobe InDesign, Adobe Photoshop, HTML/CSS</li>
+      <li><strong>Interests:</strong> Fashion technology, literature, e-commerce trends</li>
+    </ul>
+  </div>
+</section>
+
+<section id="brands">
+  <h2>Clients & Brands</h2>
+  <p style="text-align: center; max-width: 600px; margin: 0 auto 1.5rem;">
+    I've collaborated with global brands and innovative startups. Here are a few of the companies I've worked with:
+  </p>
+  <div class="logo-grid">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Audi_logo.svg/1024px-Audi_logo.svg.png" alt="Audi" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Novartis-Logo.svg/1024px-Novartis-Logo.svg.png" alt="Novartis" />
+    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a1/Four_Seasons_logo.svg/1024px-Four_Seasons_logo.svg.png" alt="Four Seasons" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/LOEWE-Logo.svg/1024px-LOEWE-Logo.svg.png" alt="LOEWE" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Oris_logo.svg/1024px-Oris_logo.svg.png" alt="Oris" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1d/Logo-cassina-2021.png" alt="Cassina" />
+  </div>
+</section>
+
+<section id="results">
+  <h2>Key Achievements</h2>
+  <div class="stats-list">
+    <div class="stat">
+      <h3>+40%</h3>
+      <p>Contract growth for major client accounts (Audi, Novartis)</p>
+    </div>
+    <div class="stat">
+      <h3>$5M</h3>
+      <p>in earned media from PR campaigns (Four Seasons launch)</p>
+    </div>
+    <div class="stat">
+      <h3>+20%</h3>
+      <p>boost in conversion rates via CRM strategy (LOEWE)</p>
+    </div>
+    <div class="stat">
+      <h3>$1.1M</h3>
+      <p>annual portfolio managed across 11 accounts</p>
+    </div>
+  </div>
+  <h3 style="text-align:center; margin-top: 2rem;">Industries of Expertise</h3>
+  <div class="industries-list">
+    <span>Fashion</span><span>Retail</span><span>Tech</span><span>Hospitality</span><span>Wellness</span>
+  </div>
+</section>
+
+<section id="projects">
+  <h2>Project Highlights</h2>
+  <div class="projects-grid">
+    <!-- Project 1 -->
+    <div class="project-card">
+      <img src="https://via.placeholder.com/600x400?text=Project+Audi" alt="Project Audi thumbnail">
+      <div class="project-content">
+        <h3>Audi – Digital Brand Refresh</h3>
+        <ul>
+          <li>Led UX/UI redesign for Audi's regional website, improving user flow</li>
+          <li>Coordinated cross-functional creative team to produce branding assets</li>
+          <li>Resulted in 40% increase in contract value and enhanced client engagement</li>
+        </ul>
+        <a href="#" target="_blank" rel="noopener">View Case Study &raquo;</a>
+      </div>
+    </div>
+    <!-- Project 2 -->
+    <div class="project-card">
+      <img src="https://via.placeholder.com/600x400?text=Project+Four+Seasons" alt="Project Four Seasons thumbnail">
+      <div class="project-content">
+        <h3>Four Seasons – Spa Launch Campaign</h3>
+        <ul>
+          <li>Developed PR strategy for new spa and restaurant launch at Four Seasons</li>
+          <li>Managed press releases and media relations across national outlets</li>
+          <li>Campaign earned $5M+ in media value and widespread coverage</li>
+        </ul>
+        <a href="#" target="_blank" rel="noopener">Read Press Release &raquo;</a>
+      </div>
+    </div>
+    <!-- Project 3 -->
+    <div class="project-card">
+      <img src="https://via.placeholder.com/600x400?text=Project+Loewe" alt="Project LOEWE thumbnail">
+      <div class="project-content">
+        <h3>LOEWE – Global CRM Initiative</h3>
+        <ul>
+          <li>Executed Salesforce CRM campaigns for product launches worldwide</li>
+          <li>Optimized targeting to improve email engagement by 15%</li>
+          <li>Drove a 20% increase in prospect conversion through personalized outreach</li>
+        </ul>
+        <a href="#" target="_blank" rel="noopener">Learn More &raquo;</a>
+      </div>
+    </div>
+    <!-- Project 4 -->
+    <div class="project-card">
+      <img src="https://via.placeholder.com/600x400?text=Project+E-commerce" alt="Project e-commerce thumbnail">
+      <div class="project-content">
+        <h3>Maisonette – Merchandising Strategy</h3>
+        <ul>
+          <li>Managed onsite merchandising for new product lines on an e-commerce platform</li>
+          <li>Supported pop-up events and editorial photoshoots to boost brand visibility</li>
+          <li>Contributed to an uplift in weekly online sales through optimized product placement</li>
+        </ul>
+        <a href="#" target="_blank" rel="noopener">See Project &raquo;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <p style="text-align:center;">Interested in working together or learning more?</p>
+  <p style="text-align:center;">Let's connect: 
+    <a href="mailto:alex.doe@email.com">alex.doe@email.com</a> | 
+    <a href="https://www.linkedin.com/in/alex-doe" target="_blank" rel="noopener">LinkedIn</a>
+  </p>
+</section>
+
+<footer>
+  <p>&copy; 2025 Alex Doe.</p>
+  <p>Built with HTML5 & CSS3. Powered by coffee & creativity.</p>
+</footer>
+
+</body>
+</html>
