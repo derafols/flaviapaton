@@ -746,59 +746,48 @@
     }
     updateFilterUI();
 
-    // Accordions open/close on tap - initialize for mobile
-    if(window.innerWidth <= 768) {
-      document.querySelectorAll('.about-card').forEach(card=>{
-        card.addEventListener('click',()=>{
-          const isOpen = card.classList.contains('open');
-          document.querySelectorAll('.about-card').forEach(c=>c.classList.remove('open'));
-          if(!isOpen) card.classList.add('open');
-        });
-      });
-    }
-
-    // Handle resize events for expertise accordion
-    window.addEventListener('resize',()=>{
+    // Mobile accordion functionality - simplified for iOS Safari
+    function initializeMobileAccordions() {
       if(window.innerWidth <= 768) {
+        // Expertise accordion
         document.querySelectorAll('.about-card').forEach(card=>{
-          if(!card.hasEventListener) {
-            card.addEventListener('click',()=>{
-              const isOpen = card.classList.contains('open');
-              document.querySelectorAll('.about-card').forEach(c=>c.classList.remove('open'));
-              if(!isOpen) card.classList.add('open');
-            });
-            card.hasEventListener = true;
-          }
+          // Remove existing listeners to prevent duplicates
+          card.removeEventListener('click', card.accordionHandler);
+          
+          // Create new handler
+          card.accordionHandler = function() {
+            const isOpen = this.classList.contains('open');
+            document.querySelectorAll('.about-card').forEach(c=>c.classList.remove('open'));
+            if(!isOpen) this.classList.add('open');
+          };
+          
+          // Add listener
+          card.addEventListener('click', card.accordionHandler);
+        });
+
+        // Projects accordion
+        document.querySelectorAll('.project-card').forEach(card=>{
+          // Remove existing listeners to prevent duplicates
+          card.removeEventListener('click', card.accordionHandler);
+          
+          // Create new handler
+          card.accordionHandler = function() {
+            const isOpen = this.classList.contains('open');
+            document.querySelectorAll('.project-card').forEach(c=>c.classList.remove('open'));
+            if(!isOpen) this.classList.add('open');
+          };
+          
+          // Add listener
+          card.addEventListener('click', card.accordionHandler);
         });
       }
-    });
-
-    // Project accordion - only on mobile
-    if(window.innerWidth <= 768) {
-      document.querySelectorAll('.project-card').forEach(card=>{
-        card.addEventListener('click',e=>{
-          const isOpen = card.classList.contains('open');
-          document.querySelectorAll('.project-card').forEach(c=>c.classList.remove('open'));
-          if(!isOpen) card.classList.add('open');
-        });
-      });
     }
 
-    // Handle resize events for accordion functionality
-    window.addEventListener('resize',()=>{
-      if(window.innerWidth <= 768) {
-        document.querySelectorAll('.project-card').forEach(card=>{
-          if(!card.hasEventListener) {
-            card.addEventListener('click',e=>{
-              const isOpen = card.classList.contains('open');
-              document.querySelectorAll('.project-card').forEach(c=>c.classList.remove('open'));
-              if(!isOpen) card.classList.add('open');
-            });
-            card.hasEventListener = true;
-          }
-        });
-      }
-    });
+    // Initialize on page load
+    initializeMobileAccordions();
+
+    // Re-initialize on resize
+    window.addEventListener('resize', initializeMobileAccordions);
 
     // Clients carousel controls
     const track = document.querySelector('.clients-track');
