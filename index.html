@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Flavia Paton – Creative Strategy & Project Management</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* ---------- Base Reset ---------- */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+      line-height:1.6; color:#2c2c2c; background:#fefefe;
+    }
+    .container { max-width:1200px; margin:0 auto; padding:0 20px; }
+
+    /* ---------- Navigation ---------- */
+    .nav {
+      position:fixed; top:0; width:100%;
+      background:rgba(254,254,254,.95);
+      backdrop-filter:blur(10px);
+      z-index:1000; padding:20px 0;
+    }
+    .nav .container { display:flex; justify-content:flex-end; }
+    .nav ul { list-style:none; display:flex; gap:40px; }
+    .nav a {
+      text-decoration:none; color:#6b6b6b; font-weight:500; font-size:14px;
+      letter-spacing:.5px; transition:color .3s ease;
+    }
+    .nav a:hover { color:#8b5a3c; }
+
+    /* ---------- Header ---------- */
+    .header {
+      padding:120px 0 100px;
+      background:linear-gradient(135deg,#f7f3f0 0%,#faf8f5 100%);
+      margin-top:60px;
+    }
+    .header-content {
+      display:grid; grid-template-columns:300px 1fr; gap:60px; align-items:center;
+    }
+    .profile-section { text-align:center; }
+    .profile-photo {
+      width:200px; height:200px; border-radius:50%; margin:0 auto 20px;
+      background:linear-gradient(135deg,#d4a574 0%,#c19653 100%);
+      display:flex; align-items:center; justify-content:center;
+      font-size:60px; color:#fff; font-weight:600;
+      box-shadow:0 15px 35px rgba(212,165,116,.3);
+    }
+
+    .greeting { font-size:1.2rem; color:#8b5a3c; margin-bottom:8px; font-weight:600; }
+    .bio-section h1 {
+      font-size:3.5rem; margin-bottom:10px; font-weight:700; color:#2c2c2c;
+      letter-spacing:-.02em; display:inline-flex; align-items:center; gap:10px;
+    }
+    .linkedin-icon { display:inline-block; transition:transform .3s ease; }
+    .linkedin-icon svg {
+      width:24px; height:24px; fill:#0077B5; transition:fill .3s ease;
+    }
+    .linkedin-icon:hover { transform:translateY(-2px); }
+    .linkedin-icon:hover svg { fill:#005582; }
+
+    .bio-section .subtitle {
+      font-size:1.4rem; margin-bottom:30px; color:#8b5a3c; font-weight:500;
+    }
+    .bio-section .bio {
+      font-size:1.1rem; color:#5a5a5a; margin-bottom:30px; line-height:1.7;
+    }
+
+    /* ---------- CTA Buttons ---------- */
+    .cta-buttons { display:flex; gap:12px; flex-wrap:wrap; }
+    .cta-button {
+      padding:12px 24px; border-radius:8px; text-decoration:none;
+      font-weight:600; font-size:14px; letter-spacing:.5px; transition:all .3s ease;
+    }
+    .cta-button.primary {
+      background:transparent; color:#8b5a3c; border:2px solid #8b5a3c;
+    }
+    .cta-button.primary:hover {
+      background:#8b5a3c; color:#fff; transform:translateY(-2px);
+    }
+    .cta-button.secondary {
+      background:transparent; color:#8b5a3c; border:2px solid #8b5a3c;
+    }
+    .cta-button.secondary:hover {
+      background:#8b5a3c; color:#fff; transform:translateY(-2px);
+    }
+
+    /* Mobile Optimization for Header/Bio Section */
+    @media(max-width:768px) {
+      .header {
+        padding:100px 0 60px;
+        margin-top:50px;
+      }
+      .header-content {
+        grid-template-columns:1fr; gap:40px; text-align:center;
+      }
+      .profile-photo {
+        width:150px; height:150px; margin:0 auto 15px;
+        font-size:45px;
+      }
+      .bio-section h1 {
+        font-size:2.5rem; justify-content:center; flex-wrap:wrap;
+      }
+      .bio-section .subtitle {
+        font-size:1.2rem; margin-bottom:25px;
+      }
+      .bio-section .bio {
+        font-size:1rem; margin-bottom:25px; text-align:left;
+      }
+      .cta-buttons {
+        justify-content:center; gap:8px;
+      }
+      .cta-button {
+        padding:10px 20px; font-size:13px;
+      }
+    }
+
+    @media(max-width:480px) {
+      .header {
+        padding:80px 0 50px;
+      }
+      .profile-photo {
+        width:120px; height:120px; font-size:36px;
+      }
+      .bio-section h1 {
+        font-size:2rem;
+      }
+      .bio-section .subtitle {
+        font-size:1.1rem;
+      }
+      .bio-section .bio {
+        font-size:0.95rem;
+      }
+      .cta-buttons {
+        flex-direction:column; align-items:center;
+      }
+      .cta-button {
+        width:100%; max-width:200px; text-align:center;
+      }
+    }
+
+    /* ---------- Sections ---------- */
+    .section {
+      padding:80px 0; border-bottom:1px solid #f0f0f0;
+    }
+    .section:last-child { border-bottom:none; }
+    .section h2 {
+      text-align:center; font-size:2.5rem; margin-bottom:40px;
+      color:#2c2c2c; font-weight:600; letter-spacing:-.02em;
+    }
+
+    /* ---------- Background (About) ---------- */
+    .about-grid {
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:30px;
+    }
+    .about-card {
+      background:#fff; padding:35px; border-radius:12px;
+      border:1px solid #f0f0f0; transition:all .3s ease;
+    }
+    .about-card:hover {
+      transform:translateY(-5px); box-shadow:0 10px 30px rgba(0,0,0,.08);
+    }
+    .about-card h3 {
+      color:#8b5a3c; margin-bottom:20px; font-size:1.2rem;
+      font-weight:600; cursor:pointer;
+      display:flex; justify-content:space-between; align-items:center;
+    }
+    .about-card ul { list-style:none; }
+    .about-card li {
+      padding:8px 0; color:#5a5a5a; border-bottom:1px solid #f8f8f8;
+    }
+    .about-card li:last-child { border-bottom:none; }
+
+    /* Mobile accordion functionality for expertise section */
+    @media(max-width:768px){
+      .about-grid {
+        grid-template-columns:1fr; gap:20px;
+      }
+      .about-card {
+        cursor:pointer; border-radius:8px; padding:25px;
+      }
+      .about-card h3 {
+        margin-bottom:0; font-size:1.1rem;
+      }
+      .about-card h3::after {
+        content:'▼'; font-size:0.9rem; transition:transform .3s ease;
+        color:#8b5a3c; flex-shrink:0; margin-left:10px;
+      }
+      .about-card.open h3::after {
+        transform:rotate(-180deg);
+      }
+
+      .about-card ul {
+        max-height:0; overflow:hidden; transition:all .4s ease;
+        opacity:0; transform:translateY(10px);
+      }
+      .about-card.open ul {
+        max-height:1000px; opacity:1; transform:translateY(0);
+        margin-top:20px;
+      }
+    }
+
+    /* Desktop - no accordion, content always visible */
+    @media(min-width:769px){
+      .about-card {
+        cursor:default;
+      }
+      .about-card h3 {
+        cursor:default;
+      }
+      .about-card h3::after {
+        display:none;
+      }
+    }
+
+    /* ---------- Carousel Filters ---------- */
+    .industry-filters {
+      display:flex; gap:10px; justify-content:center; flex-wrap:wrap;
+      margin-bottom:20px;
+    }
+    .filter-bubble {
+      background:#fff; color:#8b5a3c; padding:8px 16px; border-radius:50px;
+      font-weight:600; font-size:13px; letter-spacing:.5px;
+      border:2px solid #8b5a3c; text-decoration:none; transition:all .3s ease;
+    }
+    .filter-bubble:hover {
+      background:#8b5a3c; color:#fff;
+    }
+    .filter-bubble.active {
+      background:#8b5a3c; color:#fff;
+    }
+
+    /* ---------- Carousel for Clients ---------- */
+    .clients { background:#fafafa; }
+    .clients-carousel { position:relative; padding:0 60px; }
+    .clients-track {
+      display:flex; gap:40px; overflow-x:auto;
+      scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;
+      padding:20px 0 30px;
+    }
+    .clients-track::-webkit-scrollbar { display:none; }
+    .clients-track { scrollbar-width:none; }
+    .client-item {
+      flex:0 0 auto; scroll-snap-align:start; width:200px;
+      background:#fff; padding:30px 25px; border-radius:12px;
+      text-align:center; border:1px solid #f0f0f0; transition:all .3s ease;
+      display:flex; flex-direction:column; justify-content:center; align-items:center;
+    }
+    .client-item:hover {
+      transform:translateY(-3px); box-shadow:0 8px 25px rgba(0,0,0,.1);
+    }
+    .client-name {
+      font-weight:700; color:#2c2c2c; font-size:16px;
+      letter-spacing:.5px; margin-bottom:15px;
+    }
+    .client-logo {
+      width:100%; height:50px; display:flex; align-items:center; justify-content:center;
+    }
+    .client-logo img {
+      max-width:100%; max-height:100%; object-fit:contain;
+    }
+    .carousel-button {
+      position:absolute; top:50%; transform:translateY(-50%);
+      background:rgba(255,255,255,0.95); border:none; font-size:1.2rem;
+      width:44px; height:44px; cursor:pointer; border-radius:50%;
+      box-shadow:0 4px 12px rgba(0,0,0,0.15); transition:all .3s ease;
+      display:flex; align-items:center; justify-content:center;
+      color:#8b5a3c; font-weight:600; z-index:10;
+    }
+    .carousel-button:hover {
+      background:rgba(255,255,255,1); transform:translateY(-50%) scale(1.05);
+      box-shadow:0 6px 20px rgba(0,0,0,0.2);
+    }
+    .carousel-button.prev { left:0; }
+    .carousel-button.next { right:0; }
+    
+    /* Mobile optimization for clients carousel */
+    @media(max-width:768px) {
+      .clients-carousel { 
+        padding:0 50px; 
+      }
+      .clients-track {
+        gap:25px; padding:15px 0 25px;
+      }
+      .client-item {
+        width:160px; padding:25px 20px;
+      }
+      .client-name {
+        font-size:14px; margin-bottom:12px;
+      }
+      .client-logo {
+        height:40px;
+      }
+      .carousel-button { 
+        width:36px; height:36px; font-size:1rem;
+        left:5px; right:auto;
+      }
+      .carousel-button.next { 
+        left:auto; right:5px;
+      }
+    }
+
+    @media(max-width:480px) {
+      .clients-carousel { 
+        padding:0 40px; 
+      }
+      .clients-track {
+        gap:20px; padding:10px 0 20px;
+      }
+      .client-item {
+        width:140px; padding:20px 15px;
+      }
+      .client-name {
+        font-size:13px; margin-bottom:10px;
+      }
+      .client-logo {
+        height:35px;
+      }
+    }
+
+    /* ---------- Results ---------- */
+    .results-grid {
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:30px; margin-top:40px;
+    }
+    .result-card {
+      background:#fff; padding:40px 30px; border-radius:12px;
+      text-align:center; border:1px solid #f0f0f0; transition:all .3s ease;
+    }
+    .result-card:hover {
+      transform:translateY(-5px); box-shadow:0 10px 30px rgba(0,0,0,.08);
+    }
+    .result-number {
+      font-size:2.8rem; font-weight:700; color:#8b5a3c;
+      margin-bottom:8px; letter-spacing:-.02em;
+    }
+    .result-subtitle {
+      font-size:1.2rem; font-weight:600; color:#2c2c2c;
+      margin-bottom:15px; letter-spacing:.5px;
+    }
+    .result-text {
+      font-size:1rem; color:#5a5a5a; line-height:1.6;
+    }
+
+    /* ---------- Projects ---------- */
+    .projects-grid {
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:30px; margin-top:40px;
+    }
+    .project-card {
+      background:#fff; border-radius:12px; overflow:hidden;
+      border:1px solid #f0f0f0; transition:all .3s ease;
+      cursor:pointer; display:flex; flex-direction:column;
+    }
+    .project-card:hover {
+      transform:translateY(-8px); box-shadow:0 15px 35px rgba(0,0,0,.1);
+    }
+    .project-image {
+      height:200px; background:linear-gradient(135deg,#d4a574 0%,#c19653 100%);
+      flex-shrink:0; display:flex; align-items:center; justify-content:center;
+      padding:20px;
+    }
+    .project-title {
+      font-size:1.4rem; color:#fff; font-weight:600; text-align:center;
+      line-height:1.3; margin:0;
+    }
+    .project-content {
+      padding:35px; flex-grow:1; display:flex; flex-direction:column;
+    }
+    .project-description {
+      color:#5a5a5a; line-height:1.7; margin-bottom:auto;
+    }
+    .project-link {
+      margin-top:20px; align-self:flex-start;
+      background:#8b5a3c; color:#fff; padding:12px 25px; border-radius:8px;
+      text-decoration:none; font-weight:600; font-size:14px; letter-spacing:.5px;
+      transition:all .3s ease;
+    }
+    .project-link:hover {
+      background:#6d4630; transform:translateY(-2px);
+    }
+
+    /* Mobile-only accordion functionality */
+    @media(max-width:768px){
+      .projects-grid {
+        grid-template-columns:1fr; gap:20px; margin-top:30px;
+      }
+      .project-card {
+        cursor:pointer; border-radius:8px;
+      }
+      .project-image {
+        height:120px; padding:15px;
+      }
+      .project-title {
+        cursor:pointer;
+        display:flex; justify-content:space-between; align-items:center;
+        font-size:1.1rem; padding:0 15px;
+      }
+      .project-title::after {
+        content:'▼'; font-size:0.9rem; transition:transform .3s ease;
+        color:#fff; flex-shrink:0; margin-left:10px;
+      }
+      .project-card.open .project-title::after {
+        transform:rotate(-180deg);
+      }
+
+      .project-content {
+        padding:0; max-height:0; overflow:hidden; transition:all .4s ease;
+      }
+      .project-card.open .project-content {
+        padding:25px; max-height:1000px;
+      }
+
+      .project-description,
+      .project-link {
+        opacity:0; transform:translateY(10px); transition:all .4s ease;
+      }
+      .project-card.open .project-description,
+      .project-card.open .project-link {
+        opacity:1; transform:translateY(0);
+      }
+    }
+
+    /* Desktop - no accordion, title always visible */
+    @media(min-width:769px){
+      .project-card {
+        cursor:default;
+      }
+      .project-title {
+        cursor:default;
+      }
+    }
+
+    /* ---------- Contact Section ---------- */
+    .contact {
+      background:linear-gradient(135deg,#f7f3f0 0%,#faf8f5 100%);
+    }
+    .contact-content {
+      text-align:center; max-width:600px; margin:0 auto;
+    }
+    .contact-text {
+      font-size:1.2rem; color:#5a5a5a; line-height:1.7; margin-bottom:30px;
+    }
+    .contact-email {
+      display:inline-block; background:#8b5a3c; color:#fff; padding:15px 30px;
+      border-radius:8px; text-decoration:none; font-weight:600; font-size:16px;
+      letter-spacing:.5px; margin-bottom:30px; transition:all .3s ease;
+    }
+    .contact-email:hover {
+      background:#6d4630; transform:translateY(-2px);
+    }
+    .social-links {
+      display:flex; gap:20px; justify-content:center; flex-wrap:wrap;
+    }
+    .social-link {
+      color:#8b5a3c; text-decoration:none; font-weight:500; font-size:14px;
+      letter-spacing:.5px; transition:color .3s ease;
+    }
+    .social-link:hover { color:#6d4630; }
+
+    /* ---------- Smooth Scrolling ---------- */
+    html { scroll-behavior:smooth; }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="container">
+      <ul>
+        <li><a href="#background">Expertise</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#contact">Contact Me</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="header" id="home">
+    <div class="container">
+      <div class="header-content">
+        <div class="profile-section">
+          <div class="profile-photo" style="background-image:url('https://media.licdn.com/dms/image/v2/D4E03AQH323L0S2SHiQ/profile-displayphoto-shrink_800_800/B4EZSEipLEGgAc-/0/1737390462185?e=1758153600&v=beta&t=2DHclyZDQ4QxWq2vmEHe1wCvb5nn2HI0CU5gi6kkMco');background-size:cover;background-position:center;"></div>
+        </div>
+        <div class="bio-section">
+          <p class="greeting">👋 Hello!</p>
+          <h1>
+            Flavia Paton
+            <a href="https://www.linkedin.com/in/flaviapaton" class="linkedin-icon" target="_blank" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.75 2.24 5 5 5h14c2.75 0 5-2.25 5-5v-14c0-2.76-2.25-5-5-5zm-11.75 20h-3v-11h3v11zm-1.5-12.57c-.96 0-1.75-.78-1.75-1.75 0-.97.79-1.75 1.75-1.75.97 0 1.75.78 1.75 1.75 0 .97-.78 1.75-1.75 1.75zm13.25 12.57h-3v-5.67c0-1.35-.03-3.08-1.88-3.08-1.88 0-2.17 1.46-2.17 2.97v5.78h-3v-11h2.88v1.5h.04c.4-.76 1.38-1.56 2.84-1.56 3.04 0 3.6 2 3.6 4.6v6.46z"/>
+              </svg>
+            </a>
+          </h1>
+          <p class="subtitle">Creative Strategy &amp; Brand Management</p>
+          <p class="bio">
+            I help luxury, fashion, & wellness companies tell their stories.
+            <br>
+            <br>
+            With an MBA in Fashion Business and experience at <b>LOEWE</b>, <b>Four Seasons</b>, and <b>Shopify</b> (among many others!), I love to partner with 
+            brands to develop their brand vision and execute across the creative lifecycle — turning brand narratives into meaningful business growth.
+            <br>
+            <br>
+            Check out my portfolio below, and reach out if you'd like to partner together! 
+          </p>
+          <div class="cta-buttons">
+            <a href="#background" class="cta-button primary">View Expertise</a>
+            <a href="#clients" class="cta-button secondary">My Clients</a>
+            <a href="#results" class="cta-button secondary">See Results</a>
+            <a href="#projects" class="cta-button secondary">Featured Projects</a>
+            <a href="#contact" class="cta-button secondary">Contact Me</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Background Section -->
+  <section class="section" id="background">
+    <div class="container">
+      <h2>Expertise</h2>
+      <div class="about-grid">
+        <div class="about-card">
+          <h3>🎓 Education</h3>
+          <ul>
+            <li><strong>MBA in Fashion Business</strong><br>Universidad de Navarra, Madrid</li>
+            <li><strong>B.A. English Literature</strong><br>University of Miami (Dean's List)</li>
+          </ul>
+        </div>
+        <div class="about-card">
+          <h3>🛠️ Skills &amp; Tools</h3>
+          <ul>
+            <li>Figma &amp; Creative Suite</li>
+            <li>CRM Mgmt (Salesforce, Hubspot, etc)</li>
+            <li>Adobe InDesign &amp; Photoshop</li>
+            <li>Strategic Planning &amp; Analysis</li>
+            <li>Project Mgmt (Asana, Notion, etc)</li>
+          </ul>
+        </div>
+        <div class="about-card">
+          <h3>🌍 Languages &amp; Interests</h3>
+          <ul>
+            <li><strong>Languages:</strong> English (fluent), Spanish (fluent), French (conversational)</li>
+            <li><strong>Passions:</strong> Classic lit (soft spot for Jane Austen!), half marathons, tennis</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Clients Carousel with Industry Filters -->
+  <section class="section clients" id="clients">
+    <div class="container">
+      <h2>Current and Prior Experience</h2>
+      <div class="industry-filters">
+        <a href="#" class="filter-bubble" data-filter="">All</a>
+        <a href="#" class="filter-bubble" data-filter="Luxury">💎 Luxury</a>
+        <a href="#" class="filter-bubble" data-filter="Fashion">👗 Fashion</a>
+        <a href="#" class="filter-bubble" data-filter="Technology">💻 Technology</a>
+        <a href="#" class="filter-bubble" data-filter="Wellness">🌿 Wellness</a>
+      </div>
+      <div class="clients-carousel">
+        <button class="carousel-button prev">&lt;</button>
+        <div class="clients-track">
+          <div class="client-item" data-industry="Luxury">
+            <div class="client-name">AUDI</div>
+            <div class="client-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/9/92/Audi-Logo_2016.svg" alt="Audi logo"></div>
+          </div>
+          <div class="client-item" data-industry="Wellness">
+            <div class="client-name">FOUR SEASONS</div>
+            <div class="client-logo"><img src="https://vtlogo.com/wp-content/uploads/2020/09/four-seasons-hotels-limited-vector-logo.png" alt="Four Seasons logo"></div>
+          </div>
+          <div class="client-item" data-industry="Technology">
+            <div class="client-name">SHOPIFY</div>
+            <div class="client-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Shopify_Logo.png" alt="Oris logo"></div>
+          </div>
+          <div class="client-item" data-industry="Fashion">
+            <div class="client-name">LOEWE</div>
+            <div class="client-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/8/8e/Loewe_logo.svg" alt="LOEWE logo"></div>
+          </div>
+          <div class="client-item" data-industry="Luxury">
+            <div class="client-name">CASSINA</div>
+            <div class="client-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1d/Logo-cassina-2021.png" alt="Cassina logo"></div>
+          </div>
+          <div class="client-item" data-industry="Technology">
+            <div class="client-name">DATADOG</div>
+            <div class="client-logo"><img src="https://www.hashicorp.com/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F2885%2F1611308816-datadog-horizontal-rgb.png&w=3840&q=75" alt="Metaplane logo"></div>
+          </div>
+          <div class="client-item" data-industry="Technology">
+            <div class="client-name">SUPERSIDE</div>
+            <div class="client-logo"><img src="https://cdn.brandfetch.io/id29Z6kt6i/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Superside logo"></div>
+          </div>
+          <div class="client-item" data-industry="Luxury">
+            <div class="client-name">ORIS</div>
+            <div class="client-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Oris_Logo.png" alt="Oris logo"></div>
+          </div>
+          <div class="client-item" data-industry="Fashion">
+            <div class="client-name">MAISONETTE</div>
+            <div class="client-logo"><img src="https://vtlogo.com/wp-content/uploads/2021/11/maisonette-vector-logo.png" alt="Oris logo"></div>
+          </div>
+          <div class="client-item" data-industry="Fashion">
+            <div class="client-name">LOLA CRUZ</div>
+            <div class="client-logo"><img src="https://1000logos.net/wp-content/uploads/2021/05/Lola-Cruz-logo.png" alt="Oris logo"></div>
+          </div>
+          <div class="client-item" data-industry="Technology">
+            <div class="client-name">PALO ALTO</div>
+            <div class="client-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/d/de/PaloAltoNetworks_2020_Logo.svg" alt="Oris logo"></div>
+          </div>
+          <div class="client-item" data-industry="Fashion">
+            <div class="client-name">COLLAGERIE</div>
+            <div class="client-logo"><img src="https://images.squarespace-cdn.com/content/v1/5a5ca871e5dd5b12441f65a3/1639339890593-25DCYUSZH3HQJM0HJVY2/collagerie-logo.png?format=300w" alt="Oris logo"></div>
+          </div>
+
+          <div class="client-item" data-industry="Wellness">
+            <div class="client-name">NOVARTIS</div>
+            <div class="client-logo"><img src="https://www.novartis.com/sites/novartiscom/files/styles/webp/public/2021-10/novartis-logo-transparent.png.webp?itok=kFXOEAny" alt="Novartis logo"></div>
+          </div>
+        </div>
+        <button class="carousel-button next">&gt;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results Section -->
+  <section class="section" id="results">
+    <div class="container">
+      <h2>Results Highlights</h2>
+      <div class="results-grid">
+        <div class="result-card">
+          <div class="result-number">+40%</div>
+          <div class="result-subtitle">Contract Growth</div>
+          <div class="result-text">Achieved for key clients including Audi, Novartis &amp; Metaplane through strategic brand development</div>
+        </div>
+        <div class="result-card">
+          <div class="result-number">$5M+</div>
+          <div class="result-subtitle">Earned Media</div>
+          <div class="result-text">Generated through Four Seasons PR campaigns and Michelin-star restaurant launch strategy</div>
+        </div>
+        <div class="result-card">
+          <div class="result-number">+30%</div>
+          <div class="result-subtitle">Conversion Growth</div>
+          <div class="result-text">Increased prospect conversion via targeted CRM campaigns and strategic optimisations at LOEWE</div>
+        </div>
+        <div class="result-card">
+          <div class="result-number">$4.5M</div>
+          <div class="result-subtitle">Portfolio Managed</div>
+          <div class="result-text">Annual client portfolio across 11 strategic accounts, driving budgets, forecasts &amp; market analysis</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section class="section" id="projects">
+    <div class="container">
+      <h2>Featured Projects</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-image">
+            <h3 class="project-title">Audi: Digital Brand Evolution</h3>
+          </div>
+          <div class="project-content">
+            <p class="project-description">Led comprehensive digital transformation including website UX/UI redesign and brand development. Coordinated cross-functional creative teams to deliver premium automotive experiences that resulted in significant contract expansion.</p>
+            <a href="#" class="project-link">View Case Study</a>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-image">
+            <h3 class="project-title">Four Seasons: Luxury Experience Launch</h3>
+          </div>
+          <div class="project-content">
+            <p class="project-description">Orchestrated communications and marketing strategy for Four Seasons spa launch and Michelin-starred restaurant opening. Created integrated campaigns that generated substantial earned media coverage and elevated brand prestige.</p>
+            <a href="#" class="project-link">Read Press Coverage</a>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-image">
+            <h3 class="project-title">LOEWE: Global CRM Strategy</h3>
+          </div>
+          <div class="project-content">
+            <p class="project-description">Developed sophisticated Salesforce CRM strategies for luxury product launches, collaborating with e-commerce and merchandising teams. Implemented data-driven optimisations that significantly improved customer engagement and conversion rates.</p>
+            <a href="#" class="project-link">View Impact</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section contact" id="contact">
+    <div class="container">
+      <h2>Let's Partner</h2>
+      <div class="contact-content">
+        <p class="contact-text">
+          I'm always on the lookout for exciting opportunities to partner with brands across their creative lifecycle.
+        </p>
+        <a href="mailto:flavia.paton@gmail.com" class="contact-email">
+          flavia.paton@gmail.com
+        </a>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/flaviapaton" class="social-link" target="_blank" rel="noopener">
+            LinkedIn
+          </a>
+         
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scripts -->
+  <script>
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',e=>{
+        e.preventDefault();
+        document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth'});
+      });
+    });
+
+    // Nav background on scroll
+    window.addEventListener('scroll',()=>{
+      document.querySelector('.nav').style.background =
+        window.scrollY>100 ? 'rgba(254,254,254,.98)' : 'rgba(254,254,254,.95)';
+    });
+
+    // Industry filter logic
+    let activeFilter = '';
+    const filterBubbles = document.querySelectorAll('.filter-bubble');
+    const clientItems = document.querySelectorAll('.client-item');
+    filterBubbles.forEach(bubble=>{
+      bubble.addEventListener('click', e=>{
+        e.preventDefault();
+        const f = bubble.dataset.filter;
+        activeFilter = (activeFilter === f) ? '' : f;
+        updateFilterUI();
+      });
+    });
+    function updateFilterUI(){
+      filterBubbles.forEach(b=>{
+        b.classList.toggle('active', b.dataset.filter === activeFilter && activeFilter!=='');
+      });
+      clientItems.forEach(item=>{
+        const industry = item.dataset.industry;
+        item.style.display = (!activeFilter || industry === activeFilter) ? '' : 'none';
+      });
+    }
+    updateFilterUI();
+
+    // Accordions open/close on tap - initialize for mobile
+    if(window.innerWidth <= 768) {
+      document.querySelectorAll('.about-card').forEach(card=>{
+        card.addEventListener('click',()=>{
+          const isOpen = card.classList.contains('open');
+          document.querySelectorAll('.about-card').forEach(c=>c.classList.remove('open'));
+          if(!isOpen) card.classList.add('open');
+        });
+      });
+    }
+
+    // Handle resize events for expertise accordion
+    window.addEventListener('resize',()=>{
+      if(window.innerWidth <= 768) {
+        document.querySelectorAll('.about-card').forEach(card=>{
+          if(!card.hasEventListener) {
+            card.addEventListener('click',()=>{
+              const isOpen = card.classList.contains('open');
+              document.querySelectorAll('.about-card').forEach(c=>c.classList.remove('open'));
+              if(!isOpen) card.classList.add('open');
+            });
+            card.hasEventListener = true;
+          }
+        });
+      }
+    });
+
+    // Project accordion - only on mobile
+    if(window.innerWidth <= 768) {
+      document.querySelectorAll('.project-card').forEach(card=>{
+        card.addEventListener('click',e=>{
+          const isOpen = card.classList.contains('open');
+          document.querySelectorAll('.project-card').forEach(c=>c.classList.remove('open'));
+          if(!isOpen) card.classList.add('open');
+        });
+      });
+    }
+
+    // Handle resize events for accordion functionality
+    window.addEventListener('resize',()=>{
+      if(window.innerWidth <= 768) {
+        document.querySelectorAll('.project-card').forEach(card=>{
+          if(!card.hasEventListener) {
+            card.addEventListener('click',e=>{
+              const isOpen = card.classList.contains('open');
+              document.querySelectorAll('.project-card').forEach(c=>c.classList.remove('open'));
+              if(!isOpen) card.classList.add('open');
+            });
+            card.hasEventListener = true;
+          }
+        });
+      }
+    });
+
+    // Clients carousel controls
+    const track = document.querySelector('.clients-track');
+    document.querySelector('.carousel-button.next').addEventListener('click',()=>{
+      track.scrollBy({ left: track.clientWidth * 0.8, behavior: 'smooth' });
+    });
+    document.querySelector('.carousel-button.prev').addEventListener('click',()=>{
+      track.scrollBy({ left: -track.clientWidth * 0.8, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
